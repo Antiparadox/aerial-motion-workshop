@@ -1,0 +1,268 @@
+@font-face{font-family:Manrope;src:url('assets/fonts/Manrope.ttf') format('truetype');font-weight:200 800;font-display:swap}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;font-family:Manrope,sans-serif}body{background:#f4f6f8;color:#142a39;overflow:hidden}button,input,a{font:inherit}button,a{touch-action:manipulation}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #27a99a;outline-offset:5px}a{color:inherit;text-decoration:none}header{position:fixed;top:0;left:0;right:0;height:64px;padding:0 4.6vw;display:flex;align-items:center;justify-content:space-between;z-index:10;border-bottom:1px solid #142a3917;background:#f4f6f8}header div{display:flex;align-items:center;gap:24px}header a,header button{font-size:13px}.wordmark{font-weight:650}.wordmark span{font-weight:400;color:#8c9da8;margin-left:18px}button{border:0;background:none;color:inherit}header button{padding:9px 0}body.on-light header,body.on-light footer{background:#f4f6f8;color:#142a39;border-color:#142a3917}.slide{position:absolute;inset:64px 0 58px;padding:4.2vh 5.2vw 3vh;overflow:auto}.slide[hidden]{display:none}.light{background:#f4f6f8;color:#142a39}.dark{background:#0d1e2b}.eyebrow{font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:#79dfd0;font-weight:650;margin:0 0 20px}.light .eyebrow{color:#157e78}h1,h2{font-weight:450;letter-spacing:-.045em;line-height:1.13;margin:0 0 30px}h1{font-size:clamp(39px,4.9vw,76px)}h2{font-size:clamp(36px,4.4vw,64px)}em{font-style:normal;color:#91afa9}.light em{color:#667f8c}h3{font-size:clamp(18px,1.65vw,26px);font-weight:650;letter-spacing:-.02em;margin:0 0 12px}p{font-size:clamp(16px,1.45vw,22px);line-height:1.6;margin:0 0 22px}.lead{font-size:clamp(20px,1.8vw,28px);line-height:1.5}.two-col{display:grid;grid-template-columns:1fr 1.04fr;gap:5vw;align-items:start}.two-col>div>div+div{margin-top:25px}.question{color:#79dfd0;border-left:2px solid currentColor;padding-left:20px;font-size:clamp(18px,1.55vw,25px);margin-top:30px}.light .question{color:#157e78}figure{margin:0;min-width:0}figcaption,.caption,.foot{font-size:12px;line-height:1.65;color:#8196a3;margin:12px 0 0}.light figcaption,.light .caption{color:#667987}.foot{position:absolute;bottom:22px}.photo{height:clamp(220px,30vh,350px);overflow:hidden;position:relative}.photo img{height:100%;width:100%;object-fit:cover;transform:scale(2.4);transform-origin:50% 55%}.play-overlay{position:absolute;bottom:15px;left:18px;background:#0d1e2bdf;color:white;padding:11px 17px;font-size:13px;border:1px solid #ffffff4f}.canvas-shell{background:#e8eef0}canvas{display:block;width:100%;height:clamp(230px,31vh,345px)}#physics{background:#e8eef0}#comparison{height:clamp(250px,34vh,380px)}.playback{display:flex;align-items:center;gap:12px;margin:12px 0 0;font-size:12px}.playback button{color:#157e78;padding:0;font-weight:650;min-width:113px}.playback input{width:100%;min-width:40px;accent-color:#157e78}.playback output{white-space:nowrap;font-variant-numeric:tabular-nums}.legend{display:flex;gap:20px;font-size:11px;margin-bottom:8px;color:#627786}.legend span:before{content:'';width:8px;height:8px;display:inline-block;border-radius:50%;margin-right:7px}.teal-dot:before{background:#157e78}.amber-dot:before{background:#b67932}.navy-dot:before{background:#213b50}.speed-control{display:flex;align-items:center;gap:20px;font-size:12px;margin:14px 0}.speed-control input{flex:1;accent-color:#157e78}.pipeline{display:flex;align-items:center;justify-content:space-between;gap:13px;margin:35px 0 0}.stage{font-size:16px;line-height:1.4;padding:16px 12px;border-top:1px solid #526b79;border-bottom:1px solid #526b79;text-align:center;max-width:155px}.factors{display:flex;flex-direction:column;gap:7px;min-width:90px}.factors span{padding:4px 14px;border-left:2px solid #79dfd0;font-size:15px}.arrow{font-size:25px;color:#79dfd0}.result{color:#79dfd0}.aims,.impact-cols{display:grid;grid-template-columns:1fr 1fr;gap:6vw;margin-top:32px}.aims article,.impact-cols article{border-top:1px solid #ffffff22;padding-top:19px}.number{font-size:12px;color:#79dfd0;display:block;margin-bottom:12px}.aims p{font-size:17px;margin:0}.impact-cols{margin-top:10px}.impact-cols p{font-size:clamp(16px,1.4vw,21px)}.impact-cols .caption{font-size:12px}.closing{font-size:clamp(18px,1.55vw,24px);color:#79dfd0;border-top:1px solid #ffffff22;padding-top:20px;margin-top:20px}.finding{border-left:2px solid #b67932;padding-left:18px}.finding strong{color:#a56a19;font-size:16px}.finding p{font-size:17px;margin-top:7px}.text-button{padding:0;color:#157e78;border-bottom:1px solid #157e7860;font-size:13px}.fragment{opacity:0;visibility:hidden;transform:translateY(9px);transition:opacity .38s,transform .38s}.fragment.revealed{opacity:1;visibility:visible;transform:none}footer{height:58px;position:fixed;bottom:0;left:0;right:0;border-top:1px solid #142a3917;background:#f4f6f8;display:flex;align-items:center;padding:0 4.6vw;gap:18px;font-size:11px;z-index:10;color:#94a7b3}footer nav{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:12px}footer nav button{width:7px;height:7px;border-radius:50%;padding:0;background:#647d8b;opacity:.55}footer nav button.active{background:#79dfd0;opacity:1;outline:1px solid #79dfd0;outline-offset:5px}footer>div:not(.progress){margin-left:auto;display:flex;gap:14px;align-items:center}footer>div button{font-size:25px;border:1px solid #647d8b;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;padding:0}button:disabled{opacity:.3;cursor:default}.hint{font-size:10px}.progress{height:2px;position:absolute;bottom:0;left:0;background:#79dfd0;transition:width .35s}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}dialog{width:min(1050px,92vw);max-height:90vh;background:#f4f6f8;color:#142a39;border:0;padding:0;box-shadow:0 25px 100px #0008}dialog::backdrop{background:#526b7999}.dialog-head{position:sticky;top:0;z-index:1;background:#f4f6f8;padding:22px 30px;border-bottom:1px solid #d9e1e4;display:flex;justify-content:space-between;align-items:center}.dialog-head h2{font-size:25px;margin:0}.dialog-head button{font-size:22px}dialog>p{font-size:14px}dialog a{color:#157e78;text-decoration:underline}dialog video,dialog>img{width:100%;display:block}dialog>p{padding:0 30px 20px;margin-top:15px}
+@media(min-width:1250px) and (max-height:800px){.slide{padding-top:3vh}h1,h2{margin-bottom:22px}.eyebrow{margin-bottom:12px}p{margin-bottom:16px}.pipeline{margin-top:20px}.aims{margin-top:20px}.two-col>div>div+div{margin-top:18px}}@media(max-width:800px){.wordmark span,.hint{display:none}header div{gap:15px}.slide{padding-top:4vh}h1,h2{font-size:40px}.two-col{grid-template-columns:1fr;gap:22px}.impact-cols{gap:25px}.pipeline{gap:5px}.stage{font-size:12px;padding:12px 6px}.factors span{font-size:12px}.arrow{font-size:19px}.factors{min-width:65px}.foot{position:static;margin-top:25px}footer #frame-name{display:none}}@media(prefers-reduced-motion:reduce){.fragment{transition:none}.progress{transition:none}}
+
+/* Video opening: preserve the deck's typography and let the evidence lead. */
+.opening-grid{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.4fr);gap:4vw;align-items:center;margin-top:3vh}
+.opening-copy h1,.opening-copy h2{font-size:clamp(34px,3.8vw,60px);line-height:1.12;margin-bottom:28px}
+.opening-copy .lead{font-size:clamp(19px,1.7vw,26px)}
+.opening-copy p{font-size:clamp(16px,1.3vw,20px)}
+.opening-copy .question{font-size:clamp(17px,1.45vw,23px);margin-top:25px}
+.evidence-video{display:block;width:100%;aspect-ratio:4/3;object-fit:contain;background:#07151e;max-height:57vh}
+.video-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:13px;font-size:12px;color:#a9bfca}
+.video-duration{margin-left:12px;opacity:.65;font-variant-numeric:tabular-nums}
+.video-toolbar button{padding:4px 0;font-size:12px;color:#79dfd0}
+.light .video-toolbar{color:#667987}.light .video-toolbar button{color:#157e78}
+.circle-reveal{margin-top:22px}.circle-reveal h3{font-size:clamp(17px,1.5vw,24px)}
+@media(max-width:800px){.opening-grid{grid-template-columns:1fr;gap:18px;margin-top:0}.opening-copy h1,.opening-copy h2{font-size:34px;margin-bottom:18px}.opening-copy p{margin-bottom:12px}.opening-copy .question{margin-top:15px}.evidence-video{max-height:46vh}.circle-reveal{margin-top:15px}}
+
+/* Both examples occupy the same frame before their explanations appear. */
+.comparison-opening h1{font-size:clamp(30px,3.75vw,55px);margin-bottom:24px;line-height:1.15}
+.dual-video-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px}
+.dual-video-grid h3{font-size:clamp(16px,1.5vw,23px);margin-bottom:12px}
+.clip-letter{display:inline-block;color:#79dfd0;font-size:13px;margin-right:13px}
+.comparison-opening .evidence-video{max-height:36vh;background:#0d1e2b}
+.comparison-opening .video-toolbar{margin-top:9px;font-size:11px}
+.compare-controls{display:flex;align-items:center;gap:24px;margin:19px 0 0;font-size:12px}
+.compare-controls button{font-weight:650;color:#79dfd0;padding:6px 0}
+.compare-controls span{margin-left:auto;color:#8196a3;font-size:11px}
+.comparison-reveal{margin-top:21px;border-top:1px solid #ffffff20;padding-top:17px}
+.comparison-reveal p{font-size:clamp(14px,1.2vw,18px);line-height:1.55;margin:0}
+.comparison-reveal strong{font-weight:650;color:#edf4f5}
+.comparison-takeaway{font-size:clamp(15px,1.3vw,20px);color:#79dfd0;margin:20px 0 0}
+@media(max-width:800px){.dual-video-grid{gap:15px}.dual-video-grid h3{font-size:15px;line-height:1.4}.comparison-opening h1{font-size:30px}.comparison-opening .evidence-video{max-height:33vh}.compare-controls{gap:20px}.compare-controls span{display:none}.comparison-reveal p{font-size:14px}.comparison-takeaway{font-size:15px}.clip-letter{margin-right:8px}}
+
+/* Testbed introduction: native helicopter model and progressive control explanations. */
+.testbed-opening h1{font-size:clamp(32px,3.8vw,56px);margin-bottom:23px}
+.testbed-opening .eyebrow{margin-bottom:14px}
+.testbed-grid{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(0,1fr);gap:4vw;align-items:start}
+.model-shell{position:relative;background:radial-gradient(ellipse at 50% 48%,#233b4b,#102330 72%);border:1px solid #ffffff13;border-radius:6px;overflow:hidden}
+#testbed-model{height:clamp(240px,34vh,350px);width:100%}
+#model-mode{position:absolute;top:16px;left:18px;font-size:12px;color:#b9d0da;pointer-events:none}
+.attitude-controls{display:flex;gap:10px;margin-top:13px}
+.attitude-controls button,.collective-controls button{border:1px solid #ffffff25;border-radius:4px;padding:7px 12px;font-size:12px;color:#b9cbd5}
+.attitude-controls button[aria-pressed=true],.collective-controls button[aria-pressed=true]{color:#79dfd0;border-color:#79dfd0;background:#79dfd012}
+.testbed-copy h3{font-size:clamp(18px,1.7vw,24px);margin-bottom:9px}
+.testbed-copy p{font-size:clamp(14px,1.25vw,18px);line-height:1.65;margin:0}
+.testbed-copy strong{font-weight:650;color:#eef4f5}
+.testbed-copy>div+div{margin-top:21px}
+.collective-controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.testbed-coupling{border-top:1px solid #ffffff20;padding-top:16px}
+.testbed-transition{margin:23px 0 0;font-size:clamp(16px,1.4vw,21px);line-height:1.6;color:#e5eff2}
+.testbed-transition span{color:#79dfd0}
+@media(max-width:800px){.testbed-grid{gap:22px}.testbed-opening h1{font-size:34px}.testbed-copy p{font-size:14px}.collective-controls button{font-size:11px;padding:7px 9px}#testbed-model{height:265px}.testbed-transition{font-size:16px}}
+@media(max-width:600px){.testbed-grid{grid-template-columns:1fr}.testbed-copy>div+div{margin-top:16px}#testbed-model{height:230px}.testbed-opening h1{font-size:30px}.testbed-transition{margin-top:18px}}
+
+/* General motivation precedes the specific helicopter testbed. */
+.general-opening h1{font-size:clamp(32px,4vw,58px);margin-bottom:25px}
+.general-opening .eyebrow{margin-bottom:18px}
+.motion-introduction .lead{font-size:clamp(18px,1.8vw,26px);line-height:1.55;margin:0}
+.trajectory-definition{margin-top:24px}
+.trajectory-definition>p{font-size:clamp(16px,1.4vw,21px);line-height:1.55;margin-bottom:18px;max-width:920px}
+.trajectory-parts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:25px}
+.trajectory-parts article{border-top:1px solid #ffffff30;padding-top:14px}
+.trajectory-parts .number{margin-bottom:9px}
+.trajectory-parts h3{font-size:clamp(17px,1.65vw,25px);margin-bottom:7px}
+.trajectory-parts p{font-size:clamp(13px,1.2vw,17px);line-height:1.5;margin:0;color:#9cb2be}
+.motion-challenge{margin-top:27px;max-width:1050px}
+.motion-challenge>p{font-size:clamp(16px,1.4vw,21px);line-height:1.6;margin:0 0 15px}
+.motion-challenge .opening-goal{color:#79dfd0;font-size:clamp(18px,1.65vw,25px);line-height:1.55}
+.motion-challenge .opening-bridge{font-size:13px;color:#9cb2be;margin-top:21px}
+@media(max-width:800px){.general-opening h1{font-size:32px}.trajectory-parts{gap:18px}.trajectory-definition{margin-top:20px}.motion-challenge{margin-top:22px}}
+@media(max-width:600px){.general-opening h1{font-size:29px}.trajectory-parts{gap:12px}.trajectory-parts h3{font-size:15px}.trajectory-parts p{font-size:12px}.motion-introduction .lead{font-size:17px}.motion-challenge .opening-goal{font-size:17px}}
+
+/* Feasible trajectory space: each dot is a full movement, not a spatial location. */
+.feasible-space-frame h2{font-size:clamp(32px,4vw,54px);margin-bottom:24px}
+.feasible-space-grid{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.3fr);gap:3.5vw;align-items:start}
+.space-explanation>div+div{margin-top:22px}
+.space-explanation h3{font-size:clamp(17px,1.55vw,23px);line-height:1.4;margin-bottom:8px}
+.space-explanation p{font-size:clamp(14px,1.22vw,18px);line-height:1.6;margin:0}
+.request-label{display:block;font-size:11px;color:#157e78;font-weight:650;margin:0 0 15px}
+.trajectory-space svg{display:block;width:100%;height:auto;overflow:visible;font-family:Manrope,sans-serif}
+.trajectory-space svg .fragment{transform:none}
+.space-label{font-size:16px;font-weight:600;fill:#4f6979}.feasible-label{fill:#157e78}.invalid-label{fill:#a15452}.target-label{font-size:15px;font-weight:650;fill:#8a6024}.generator-label{font-size:15px;font-weight:600;fill:#f4f6f8}.space-footnote{font-size:13px;fill:#667987}
+.trajectory-space figcaption{font-size:11px;line-height:1.5;margin-top:8px}
+.generation-difficulty{border-top:1px solid #ccd8de;padding-top:18px;margin-top:24px;max-width:1150px}
+.generation-difficulty h3{font-size:clamp(17px,1.55vw,23px);margin:0 0 8px}
+.generation-difficulty p{font-size:clamp(14px,1.2vw,18px);line-height:1.6;margin:0}
+@media(max-width:800px){.feasible-space-frame h2{font-size:32px}.feasible-space-grid{grid-template-columns:minmax(0,.85fr) minmax(0,1.25fr);gap:22px}.space-explanation>div+div{margin-top:17px}.request-label{font-size:10px}.generation-difficulty{margin-top:21px;padding-top:15px}}
+@media(max-width:600px){.feasible-space-grid{grid-template-columns:1fr}.trajectory-space{max-width:500px}.space-explanation>div+div{margin-top:14px}.feasible-space-frame h2{font-size:30px}}
+
+.feasible-space-frame .generation-difficulty{margin-top:16px;padding-top:14px}
+
+/* Constrained trajectory set and proposed latent factor spaces. */
+.factor-space-frame h2{font-size:clamp(29px,3.6vw,50px);margin-bottom:22px}
+.factor-space-grid{display:grid;grid-template-columns:minmax(0,.83fr) minmax(0,1.3fr);gap:3vw;align-items:start}
+.factor-explanation>div+div{margin-top:18px}
+.factor-explanation h3{font-size:clamp(16px,1.5vw,22px);line-height:1.35;margin-bottom:7px}
+.factor-explanation p{font-size:clamp(14px,1.2vw,18px);line-height:1.6;margin:0}
+.math-symbol{font-family:Georgia,serif;font-style:italic}
+.factor-space-diagram svg{display:block;width:100%;height:auto;font-family:Manrope,sans-serif;overflow:visible}
+.factor-space-diagram svg .fragment{transform:none}
+.diagram-heading{font-size:17px;font-weight:650;fill:#3e596b}.feasible-set-label{font-size:17px;font-weight:650;fill:#167668}.invalid-set-label{font-size:15px;font-weight:600;fill:#a55c57}.task-set-label{font-size:14px;fill:#9c712e}.factor-coordinate-label{font-size:16px;fill:#425e70;font-weight:600}.coupling-label{font-size:14px;fill:#657f8e}.decoder-label{font-size:16px;fill:#f2f6f7;font-weight:600}.output-label{font-size:15px;fill:#157e78;font-weight:650}
+.factor-space-diagram figcaption{font-size:11px;line-height:1.55;margin-top:8px}
+@media(max-width:800px){.factor-space-frame h2{font-size:30px}.factor-space-grid{gap:22px}.factor-explanation>div+div{margin-top:16px}.factor-explanation h3{font-size:16px}.factor-explanation p{font-size:14px}}
+@media(max-width:600px){.factor-space-grid{grid-template-columns:1fr}.factor-space-diagram{max-width:500px}.factor-space-frame h2{font-size:29px}}
+
+.component-generator-label{font-family:Georgia,serif;font-style:italic;font-size:21px;font-weight:600;fill:#213b50;paint-order:stroke;stroke:#f4f6f8;stroke-width:3px;stroke-linejoin:round}
+
+/* On-demand example of a physics-guided motion factor. */
+.symmetry-trigger{margin-top:11px;font-weight:650;font-size:12px}
+#symmetry-dialog{width:min(760px,92vw);border-radius:8px}
+#symmetry-dialog .dialog-head{padding:19px 25px}
+#symmetry-dialog .dialog-head h2{font-size:23px;letter-spacing:-.03em}
+.symmetry-content{padding:20px 25px 21px}
+.symmetry-model-shell{position:relative;background:#0d1e2b;border-radius:5px;overflow:hidden}
+#symmetry-model{width:100%;height:clamp(220px,34vh,310px)}
+.symmetry-badge{position:absolute;top:14px;left:16px;color:#79dfd0;font-size:11px;letter-spacing:.02em}
+.symmetry-captions{display:grid;grid-template-columns:1fr 1fr;gap:24px;min-height:83px;margin-top:19px}
+.symmetry-captions p{font-size:17px;line-height:1.55;margin:0;animation:symmetry-reveal .5s ease both}
+.symmetry-captions strong{color:#157e78;font-weight:650}
+.symmetry-captions [hidden]{display:none}
+.symmetry-controls{display:flex;align-items:center;gap:18px;border-top:1px solid #142a391b;padding-top:14px}
+.symmetry-controls button{font-size:13px;font-weight:650;color:#157e78;padding:3px 0}
+.symmetry-controls span{margin-left:auto;color:#6a7f8c;font-size:11px}
+.symmetry-note{font-size:11px;color:#667987;line-height:1.55;margin:12px 0 0}
+@keyframes symmetry-reveal{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+@media(max-width:600px){.symmetry-content{padding:15px 20px}.symmetry-captions{gap:15px;min-height:102px}.symmetry-captions p{font-size:15px}.symmetry-controls{gap:13px}.symmetry-controls span{max-width:125px}#symmetry-dialog .dialog-head h2{font-size:20px}}
+@media(prefers-reduced-motion:reduce){.symmetry-captions p{animation:none}}
+@media(min-width:601px) and (max-width:900px){.factor-space-frame h2{margin-bottom:18px}.factor-explanation>div+div{margin-top:12px}.factor-explanation p{line-height:1.5}}
+
+/* A simple hypothesis frame follows factor discovery. */
+.generator-frame h2{font-size:clamp(30px,3.8vw,56px);margin-bottom:22px}
+.generator-intro{font-size:clamp(16px,1.5vw,22px);line-height:1.55;max-width:1000px;margin-bottom:20px}
+.generator-flow{display:grid;grid-template-columns:1fr 22px 1.15fr 22px 1fr 22px 1fr;align-items:center;gap:12px;margin:21px 0 26px}
+.generator-flow>div{font-size:clamp(14px,1.35vw,20px);line-height:1.45;text-align:center}
+.generator-models{display:flex;flex-direction:column;gap:7px;text-align:left!important}
+.generator-models span{border-left:2px solid #79dfd0;padding-left:12px;font-size:clamp(13px,1.2vw,18px)}
+.generator-request,.generator-assembly,.generator-result{border-top:1px solid #ffffff30;border-bottom:1px solid #ffffff30;padding:17px 5px}
+.generator-result{color:#79dfd0}.generator-connector{color:#79dfd0;font-size:22px;text-align:center}
+.generator-hypothesis{font-size:clamp(16px,1.5vw,22px);line-height:1.55;margin-bottom:21px;color:#d7e7ea}
+.generator-benefit-columns{display:grid;grid-template-columns:1fr 1fr;gap:5vw}
+.generator-benefit-columns h3{color:#79dfd0;font-size:clamp(17px,1.5vw,23px);margin-bottom:8px}
+.generator-benefit-columns p{font-size:clamp(14px,1.25vw,18px);line-height:1.6;margin:0}
+.generator-validation{border-top:1px solid #ffffff20;padding-top:16px;margin:23px 0 0;font-size:clamp(14px,1.3vw,19px);line-height:1.6;color:#b6cbd2}
+@media(max-width:900px){.generator-frame .eyebrow{margin-bottom:14px}.generator-frame h2{font-size:32px;margin-bottom:18px}.generator-flow{gap:8px;margin:16px 0 20px}.generator-hypothesis{margin-bottom:17px}.generator-validation{margin-top:18px;padding-top:14px}}
+@media(max-width:600px){.generator-flow{grid-template-columns:1fr 15px 1.2fr 15px 1fr}.generator-flow>.generator-connector:nth-last-child(2){display:none}.generator-result{grid-column:1/-1;margin-top:8px;padding:10px}.generator-result br{display:none}.generator-flow>div{font-size:13px}.generator-models span{font-size:12px;padding-left:6px}.generator-benefit-columns{gap:22px}}
+
+.physical-label{color:#157e78;font-weight:650}.request-match-label{color:#9c712e;font-weight:650}.desired-set-label{fill:#126955;font-size:16px;font-weight:650}
+
+/* Four concise reveals distinguish representation learning from task conditioning. */
+@media(min-width:601px) and (max-width:900px){.factor-explanation>div+div{margin-top:11px}.factor-explanation p{font-size:13.5px;line-height:1.48}.factor-explanation h3{font-size:16px;margin-bottom:6px}.factor-space-frame .symmetry-trigger{margin-top:9px}}
+
+/* Replacement fragments share one text position on frame four. */
+.factor-explanation.hot-fragments{display:grid;align-self:center;min-height:230px;align-content:start}
+.factor-explanation.hot-fragments>div{grid-area:1 / 1;align-self:start;margin:0}
+.factor-explanation.hot-fragments h3{font-size:clamp(20px,1.9vw,27px);line-height:1.3;margin-bottom:12px}
+.factor-explanation.hot-fragments p{font-size:clamp(16px,1.45vw,21px);line-height:1.6}
+.factor-explanation.hot-fragments .request-label{display:block;margin-bottom:15px}
+.factor-explanation.hot-fragments .symmetry-trigger{font-size:13px;margin-top:17px}
+@media(max-width:600px){.factor-explanation.hot-fragments{min-height:215px;align-self:start}.factor-explanation.hot-fragments h3{font-size:21px}.factor-explanation.hot-fragments p{font-size:16px}}
+.factor-explanation.hot-fragments>.fragment{transform:none;transition:opacity .3s ease}
+
+/* Frame 5 uses the same replacement pattern to keep each idea focused. */
+.generator-sequence{display:grid}
+.generator-sequence>.fragment{grid-area:1 / 1;align-self:start;transform:none;transition:opacity .3s ease}
+.generator-requirements{display:grid;grid-template-columns:1fr 1.15fr;gap:4vw;align-items:center}
+.requirements-copy h3{font-size:clamp(20px,1.8vw,27px);line-height:1.35;margin-bottom:17px}
+.requirements-copy p{font-size:clamp(16px,1.45vw,22px);line-height:1.65;margin-bottom:18px}
+.generator-requirements .physical-label{color:#79dfd0}.generator-requirements .request-match-label{color:#f2bd7e}
+.requirements-diagram{background:#f4f6f8;padding:15px 10px 12px;border-radius:5px}
+.requirements-diagram svg{width:100%;height:auto;display:block;font-family:Manrope,sans-serif}
+.requirements-diagram figcaption{color:#667987;font-size:10px;margin:5px 12px 0}
+@media(max-width:600px){.generator-requirements{grid-template-columns:1fr;gap:15px}.requirements-diagram{max-width:500px}.requirements-copy p{margin-bottom:12px}}
+
+/* One light palette throughout the workshop deck. */
+.wordmark span{color:#667987}
+footer{color:#526b79}
+footer nav button.active{background:#157e78;outline-color:#157e78}
+.progress{background:#157e78}
+.light .foot,.light .compare-controls span{color:#667987}
+.light .number,.light .closing,.light .clip-letter,.light .comparison-takeaway,
+.light .compare-controls button,.light .motion-challenge .opening-goal,
+.light .testbed-transition span,.light .generator-result,.light .generator-connector,
+.light .generator-benefit-columns h3,.light .generator-requirements .physical-label{color:#157e78}
+.light .aims article,.light .impact-cols article,.light .closing,
+.light .trajectory-parts article,.light .testbed-coupling,.light .comparison-reveal,
+.light .generator-request,.light .generator-assembly,.light .generator-result,
+.light .generator-validation{border-color:#142a3926}
+.light .trajectory-parts p,.light .motion-challenge .opening-bridge,
+.light .generator-validation{color:#526b79}
+.light .testbed-copy strong,.light .testbed-transition,.light .comparison-reveal strong,
+.light .generator-hypothesis{color:#142a39}
+.light .generator-models span{border-color:#157e78}
+.light .generator-requirements .request-match-label{color:#9c712e}
+.light .model-shell,.symmetry-model-shell{background:radial-gradient(ellipse at 50% 48%,#eef3f5,#dce6eb 72%);border:1px solid #142a3917}
+.light #model-mode{color:#425e70}
+.light .attitude-controls button,.light .collective-controls button{color:#425e70;border-color:#142a3933}
+.light .attitude-controls button[aria-pressed=true],.light .collective-controls button[aria-pressed=true]{color:#126b65;border-color:#157e78;background:#157e780d}
+.light .evidence-video{background:#e8eef0}
+.symmetry-badge{color:#157e78}
+
+.generator-benefits .generator-hypothesis{max-width:1000px;font-size:clamp(20px,2vw,29px);line-height:1.55}
+/* Factor meanings and the hypothesised route from generation to feasible motion. */
+.factor-meaning-label,.motion-source-label{font-size:14px;fill:#526b79}.factor-edit-label{font-size:14px;fill:#157e78;font-weight:650}
+.factor-generation{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.2fr);gap:4vw;align-items:center}
+.factor-generation-copy h3{font-size:clamp(20px,1.9vw,28px);line-height:1.35;margin-bottom:17px}
+.factor-generation-copy p{font-size:clamp(16px,1.45vw,22px);line-height:1.6;margin-bottom:18px}
+.factor-generation-diagram svg{display:block;width:100%;height:auto;font-family:Manrope,sans-serif}
+.factor-generation-diagram figcaption{font-size:11px;line-height:1.5;margin-top:9px}
+@media(max-width:600px){.factor-generation{grid-template-columns:1fr;gap:15px}.factor-generation-diagram{max-width:480px}.factor-generation-copy p{margin-bottom:12px}.motion-edit-controls label{font-size:11px}}
+
+/* Keep the department visible in the presenter identity. */
+.wordmark{min-width:0;line-height:1.4}.wordmark span{font-size:12px}
+@media(max-width:800px){.wordmark span{display:block;margin-left:0;margin-top:3px;font-size:10px}}
+
+/* The first two space fragments precede the audience comparison. */
+.trajectory-intro-frame .factor-space-grid{align-items:center;margin-top:4vh}
+.trajectory-intro-frame .factor-explanation.hot-fragments{min-height:180px}
+
+/* Define a motion history before introducing the space of such histories. */
+.trajectory-terms{padding-left:19px;margin:15px 0 0;font-size:clamp(14px,1.25vw,19px);line-height:1.6}.trajectory-terms li{padding-left:3px;margin:0 0 13px}.trajectory-terms li::marker{color:#157e78}.trajectory-terms strong{font-weight:650}
+.trajectory-intro-visuals{display:grid;align-items:center;min-width:0}.trajectory-intro-visuals>figure{grid-area:1 / 1;align-self:center}.trajectory-intro-visuals>.fragment{transform:none;transition:opacity .3s ease}
+.trajectory-history{padding:21px 18px;border:1px solid #142a391c;border-radius:5px;background:#eaf0f3}.trajectory-history h3{font-size:17px;color:#425e70;margin:0 0 22px}.history-times{display:grid;grid-template-columns:repeat(3,1fr) 20px;margin-left:70px;padding-bottom:9px;border-bottom:1px solid #afc3ce;font-size:13px;color:#526b79;text-align:center}.history-row{display:grid;grid-template-columns:70px repeat(3,1fr) 20px;align-items:center;text-align:center;gap:2px;margin-top:15px;font-family:Georgia,serif;color:#157e78;font-size:17px}.history-label{font:650 12px Manrope,sans-serif;text-align:left;color:#425e70}.history-control{color:#526b90}.trajectory-history figcaption{margin-top:20px;font-size:11px}
+.trajectory-intro-frame .factor-explanation.hot-fragments{min-height:315px}.trajectory-intro-frame .factor-space-grid{margin-top:3vh;align-items:center}
+@media(max-width:600px){.trajectory-intro-frame .factor-explanation.hot-fragments{min-height:290px}.trajectory-history{padding:17px 13px}}
+
+.comparison-context{font-size:clamp(14px,1.25vw,18px);line-height:1.5;color:#526b79;margin:0 0 19px}
+
+.comparison-opening .comparison-context,.comparison-opening h1{font-size:clamp(24px,2vw,32px);line-height:1.35}
+
+/* Give the paired flights nearly the full frame width. */
+.comparison-opening .dual-video-grid{margin-left:-3.2vw;margin-right:-3.2vw;gap:14px}
+.comparison-opening .compare-controls{margin-left:-3.2vw;margin-right:-3.2vw}
+.comparison-opening .evidence-video{max-height:calc(100vh - 350px)}
+@media(max-width:600px){.comparison-opening .dual-video-grid{gap:10px}.comparison-opening .evidence-video{max-height:42vh}}
+
+.comparison-opening{padding-top:24px}
+.comparison-opening .eyebrow{margin-bottom:12px}
+.comparison-opening .comparison-context{margin-bottom:12px}
+.comparison-opening h1{margin-bottom:18px}
+.comparison-opening .compare-controls{margin-top:12px}
+
+.factor-space-frame .factor-explanation.hot-fragments p+p{margin-top:12px}
+
+/* Compare useful latent structure with compression, then test its value. */
+.representation-frame .factor-space-grid{align-items:center}
+.representation-frame .preliminary-observation{font-size:clamp(13px,1.15vw,16px);color:#526b79;margin-top:18px!important}
+.hypothesis-generation-frame h2{font-size:clamp(29px,3.6vw,50px);margin-bottom:22px}
+.hypothesis-generation-frame .factor-generation{grid-template-columns:minmax(0,.83fr) minmax(0,1.3fr);gap:3vw}
+.hypothesis-visuals{display:grid;align-items:center;min-width:0}
+.hypothesis-visuals>figure{grid-area:1 / 1;align-self:center;transform:none;transition:opacity .3s ease}
+.hypothesis-generation-frame .factor-explanation.hot-fragments p+p{margin-top:16px}
+@media(max-width:600px){.hypothesis-generation-frame .factor-generation{grid-template-columns:1fr}.hypothesis-generation-frame h2{font-size:29px}.hypothesis-visuals{max-width:500px}}
+
+.dynamics-equation{font-family:Georgia,serif;font-size:clamp(24px,2.3vw,34px);color:#157e78;line-height:1.4;margin:18px 0 8px}.dynamics-equation sub{font-size:.58em}.dynamics-equation-key{font-size:13px;line-height:1.6;color:#526b79}
+
+.representation-frame .factor-space-diagram svg{max-height:calc(100vh - 320px);width:auto;max-width:100%;margin:0 auto}
+
+.representation-frame .drawbacks-lead{margin-top:16px!important}.drawback-points{padding-left:19px;margin:12px 0 0;font-size:clamp(14px,1.3vw,19px);line-height:1.55}.drawback-points li{padding-left:3px;margin-bottom:13px}.drawback-points li::marker{color:#157e78}
+
+.tail-point-label{font-size:15px;font-weight:600;fill:#956321}
+
+.factorization-methods{padding-left:19px;margin:18px 0 0;font-size:clamp(14px,1.3vw,19px);line-height:1.55}.factorization-methods li{padding-left:3px;margin-bottom:20px}.factorization-methods li::marker{color:#157e78}.factorization-methods strong{font-weight:650}.representation-frame .factorization-methods .symmetry-trigger{margin-top:10px}
+
+.symmetry-captions{min-height:195px}.symmetry-math{font-family:Georgia,serif;font-size:clamp(19px,2.1vw,26px);line-height:1.6;color:#157e78;margin:12px 0 8px}.symmetry-math sub,.symmetry-math sup{font-size:.65em}.symmetry-symbol-key{font-size:12px;line-height:1.6;color:#526b79}.symmetry-captions>div{animation:symmetry-reveal .5s ease both}@media(max-width:600px){.symmetry-captions{grid-template-columns:1fr;min-height:0}.symmetry-math{font-size:21px}}
+
+.factor-example-label{font-size:15px;fill:#27495b}.factor-example-heading{font-size:12px;fill:#526b79}
+
+.hypothesis-generation-frame .factor-explanation.hot-fragments .generation-hypothesis{font-size:clamp(14px,1.2vw,18px);line-height:1.55;margin-top:24px}.hypothesis-generation-frame .factor-explanation.hot-fragments .generation-testbed{font-size:12px;line-height:1.5;color:#526b79;margin-top:12px}

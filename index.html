@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Learning Factorized Motion for Agile Aerial Robots</title><link rel="stylesheet" href="styles.css?v=20261009k"><script src="deck.js?v=20261009i" defer></script><script src="testbed-model.js?v=20261009i" defer></script></head>
+<body><header><a href="#1" class="wordmark">Yinuo Zhang <span>Computer Science and Software Engineering · University of Canterbury</span></a><div><button id="fullscreen" aria-label="Full screen">⛶</button></div></header>
+<main>
+<section class="slide light active general-opening" data-name="The aerial motion problem" id="frame-1">
+<p class="eyebrow">Learning factorized motion for agile aerial robots</p>
+<h1>From an intended manoeuvre<br><em>to an executable trajectory.</em></h1>
+<div class="motion-introduction fragment" data-step="1"><p class="lead">Aerial robots move and rotate in three dimensions.<br>That freedom creates a rich, tightly coupled motion space.</p></div>
+<div class="trajectory-definition fragment" data-step="2">
+<p>To realise a requested manoeuvre, we need a trajectory that describes how the aircraft moves over time.</p>
+<div class="trajectory-parts"><article><span class="number">01</span><h3>Flight path</h3><p>The route through space</p></article><article><span class="number">02</span><h3>Pace</h3><p>The speed along that route</p></article><article><span class="number">03</span><h3>Body orientation</h3><p>The aircraft’s attitude throughout</p></article></div>
+</div>
+<div class="motion-challenge fragment" data-step="3"><p>Generating a trajectory is difficult because its path, pace and orientation must match the forces the aircraft can produce.</p></div>
+</section>
+
+<section class="slide light testbed-opening" data-name="Our helicopter testbed" id="frame-2" hidden>
+<p class="eyebrow">Our aerial robot testbed</p>
+<h1>Our testbed.<br><em>Variable-pitch model helicopter.</em></h1>
+<div class="testbed-grid">
+<figure class="testbed-figure fragment" data-step="1">
+<div class="model-shell"><canvas id="testbed-model" aria-label="Animated full helicopter model from our simulator, illustrating roll, pitch, yaw and signed collective thrust"></canvas><span id="model-mode">Roll · tilt side to side</span></div>
+<div class="attitude-controls" role="group" aria-label="Illustrate body rotations"><button data-model-mode="roll" aria-pressed="true">Roll</button><button data-model-mode="pitch" aria-pressed="false">Pitch</button><button data-model-mode="yaw" aria-pressed="false">Yaw</button></div>
+<figcaption>Our simulator’s aircraft model · control illustration</figcaption>
+</figure>
+<div class="testbed-copy">
+<div class="fragment" data-step="1"><h3>Three body rotations</h3><p><strong>Roll</strong> tilts side to side. <strong>Pitch</strong> tilts the nose up or down. <strong>Yaw</strong> turns the body around its vertical axis.</p></div>
+<div class="fragment" data-step="2"><h3>Variable blade pitch</h3><p><strong>Collective</strong> changes the pitch of both main rotor blades. Positive and negative pitch can reverse rotor thrust, enabling upside-down flight.</p><div class="collective-controls" role="group" aria-label="Illustrate collective thrust"><button data-model-mode="positive" aria-pressed="false">+ Positive collective</button><button data-model-mode="negative" aria-pressed="false">− Negative collective</button></div></div>
+<div class="fragment testbed-coupling" data-step="3"><p>Together, these controls enable complex aerobatics, making this helicopter a useful testbed for complex aerial robot motion.</p></div>
+</div></div>
+
+</section>
+
+<section class="slide light feasible-space-frame factor-space-frame trajectory-intro-frame" data-name="Trajectory space and feasibility" data-scene="trajectory-intro" id="frame-3" hidden>
+<p class="eyebrow">The motion space</p><h2>A space of trajectories.<br><em>Only some are executable.</em></h2>
+<div class="factor-space-grid"><div class="factor-explanation hot-fragments">
+<div class="fragment trajectory-definition-copy" data-hot="true" data-step="1" data-until="2"><h3>A helicopter trajectory</h3><p>A trajectory describes how the helicopter’s state variables and control commands evolve over time.</p><ul class="trajectory-terms"><li class="fragment" data-step="1"><strong>State variables</strong> describe the helicopter’s position, velocity and body orientation.</li><li class="fragment" data-step="2"><strong>Control commands</strong> are inputs from the pilot or controller, such as commands for blade pitch and body rotation.</li></ul></div>
+<div class="fragment" data-hot="true" data-step="3"><h3>Trajectory space <span class="math-symbol">T</span></h3><p>The possible state-and-control histories form a high-dimensional trajectory space.</p></div>
+<div class="fragment" data-hot="true" data-step="4"><h3>The feasible motion space</h3><p>Dynamics and actuator limits restrict which trajectories the helicopter can physically execute.</p><p>Dynamic feasibility means that each next state follows from the current state and control command through the helicopter’s physical model.</p><div class="dynamics-equation" role="math" aria-label="x k plus one equals f of x k and u k"><i>x</i><sub>k+1</sub> = <i>f</i>(<i>x</i><sub>k</sub>, <i>u</i><sub>k</sub>)</div><div class="dynamics-equation-key"><i>x</i>: state · <i>u</i>: control command<br><i>f</i>: one step of the physical model</div></div>
+<div class="fragment" data-hot="true" data-step="5"><h3>Learning the feasible space</h3><p>Learning a compact latent representation of this feasible trajectory space is demanding: the model must capture how motion variables interact while respecting the aircraft’s dynamics and physical limits.</p></div>
+</div><div class="trajectory-intro-visuals">
+<figure class="trajectory-history fragment" data-hot="true" data-step="1" data-until="2"><h3>One movement through time</h3><div class="history-times"><span>t₀</span><span>t₁</span><span>t₂</span><span>…</span></div><div class="history-row"><span class="history-label">State</span><span>x(t₀)</span><span>x(t₁)</span><span>x(t₂)</span><span>…</span></div><div class="history-row history-control fragment" data-step="2"><span class="history-label">Control</span><span>u(t₀)</span><span>u(t₁)</span><span>u(t₂)</span><span>…</span></div></figure>
+<figure class="factor-space-diagram fragment" data-step="3">
+<svg viewBox="0 0 560 250" role="img" aria-labelledby="intro-factor-space-title intro-factor-space-desc">
+<title id="intro-factor-space-title">Trajectory space and its physically executable set</title>
+<desc id="intro-factor-space-desc">Each point represents a complete motion history. The teal feasible set contains trajectories satisfying dynamics and actuator limits.</desc>
+<defs><linearGradient id="intro-factor-feasible-fill" x1="0" y1="0" x2=".7" y2="1"><stop stop-color="#d6efea" /><stop offset="1" stop-color="#94c8bf" /></linearGradient><marker id="intro-factor-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10" fill="#526e7d" /></marker></defs>
+<text x="32" y="20" class="diagram-heading">Trajectory space T</text>
+<g stroke="#b9cbd4" stroke-width="1.4" stroke-linejoin="round"><path d="M45 75L425 75L510 35L130 35Z" fill="#e9f0f3" fill-opacity=".5" /><path d="M45 75V220L425 220V75" fill="#edf2f4" fill-opacity=".35" /><path d="M425 75L510 35V180L425 220Z" fill="#e0e9ed" fill-opacity=".3" /><path d="M130 35V180L510 180 M130 180L45 220" fill="none" stroke-dasharray="4 5" /></g>
+<g fill="none" stroke="#d2dfe5" stroke-width="1"><path d="M45 123H425L510 83 M45 171H425L510 131 M140 75V220 M235 75V220 M330 75V220 M140 75L225 35 M235 75L320 35 M330 75L415 35" /></g>
+<g fill="#8398a4"><circle cx="137" cy="99" r="4"/><circle cx="244" cy="181" r="4"/><circle cx="182" cy="180" r="4"/><circle cx="387" cy="138" r="4"/><circle cx="291" cy="85" r="4"/><circle cx="468" cy="122" r="4"/></g>
+<g class="fragment" data-step="4">
+<path d="M82 168C137 112 192 161 250 103C316 69 379 101 444 126L465 173C389 210 334 179 260 201C200 219 117 221 82 168Z" transform="translate(0 10)" fill="#6ba99f" fill-opacity=".38" stroke="#509889" stroke-width="1.1" />
+<path d="M82 168C137 112 192 161 250 103C316 69 379 101 444 126L465 173C389 210 334 179 260 201C200 219 117 221 82 168Z" fill="url(#intro-factor-feasible-fill)" stroke="#3e9588" stroke-width="1.8" />
+<g fill="none" stroke="#469e90" stroke-opacity=".35" stroke-width="1.2"><path d="M91 168C166 180 225 146 285 143C346 140 409 147 456 170 M152 202C188 179 229 143 263 101 M251 203C288 174 327 124 348 99" /></g>
+<path d="M82 168C137 112 192 161 250 103C316 69 379 101 444 126L465 173C389 210 334 179 260 201C200 219 117 221 82 168Z" fill="none" stroke="#3e9588" stroke-width="1.8" />
+<text x="111" y="161" class="feasible-set-label">Physically</text><text x="111" y="183" class="feasible-set-label">executable F</text>
+<circle cx="182" cy="180" r="4" fill="#157e78" />
+</g>
+</svg></figure></div></div></section>
+
+<section class="slide light comparison-opening" data-name="Two flights, different dynamics" id="frame-4" hidden>
+<p class="eyebrow">Feasibility in our simulator</p>
+<p class="comparison-context">We built a physics-based simulator for our testbed; here are two generated trajectories.</p>
+<h1>Which of the following trajectories are dynamically feasible?</h1>
+<div class="dual-video-grid fragment" data-step="1">
+<figure class="video-figure"><h3><span class="clip-letter">A</span></h3><video id="feasible-video" class="evidence-video" controls playsinline preload="metadata" poster="assets/simulated-plant-freestyle-01-12-poster.png" aria-label="Flight A: eleven-second recorded simulated helicopter flight"><source src="assets/simulated-plant-freestyle-01-12.mp4" type="video/mp4"></video><div class="video-toolbar"><span>Recorded plant rollout</span><span class="video-duration">11 s</span></div></figure>
+<figure class="video-figure"><h3><span class="clip-letter">B</span></h3><video id="circle-video" class="evidence-video" controls playsinline preload="metadata" poster="assets/level-circle-cover.png" aria-label="Flight B: ten-second deliberately modified circular reference"><source src="assets/modified-reference-level-circle-05-15.mp4" type="video/mp4"></video><div class="video-toolbar"><span>Edited reference trajectory</span><span class="video-duration">10 s</span></div></figure>
+</div>
+<div class="compare-controls fragment" data-step="1"><button id="play-both">▶ Play both</button><button id="replay-both">↻ Replay both</button><span>Our simulator · pilot-tracking view</span></div>
+
+<p class="comparison-takeaway fragment" data-step="2">A simple-looking flight can still combine a path with an incompatible attitude.</p>
+</section>
+
+
+<section class="slide light factor-space-frame representation-frame" data-name="Compression and factorization" id="frame-5" hidden>
+<p class="eyebrow">The research question</p><h2>A compact representation—<br><em>or a structured one?</em></h2>
+<div class="factor-space-grid">
+<div class="factor-explanation hot-fragments">
+<div class="fragment compression-drawbacks" data-hot="true" data-step="1" data-until="4"><h3>Compression alone</h3><p>A monolithic model can encode a complete movement in a compact latent representation.</p><p class="drawbacks-lead fragment" data-step="2">But there are still potential drawbacks:</p><ul class="drawback-points"><li class="fragment" data-step="2">Latent coordinates may not clearly distinguish different sources of motion variation.</li><li class="fragment" data-step="3">Rare or risky manoeuvres can still require many demonstrations that are difficult and costly to collect.</li><li class="fragment" data-step="4">A monolithic model may need many parameters to capture complex motion, creating a large memory footprint for onboard deployment.</li></ul></div>
+<div class="fragment factorization-approaches" data-hot="true" data-step="5" data-until="7"><h3>Our proposed factorization</h3><p>We aim to learn a factorized latent representation that captures distinct sources of motion variation.</p><ul class="factorization-methods"><li class="fragment" data-step="6"><strong>Physics-guided decomposition.</strong> Use physical invariances to identify separable motion factors.<br><button id="symmetry-open" class="text-button symmetry-trigger" aria-haspopup="dialog">See a physical example <span aria-hidden="true">↗</span></button></li><li class="fragment" data-step="7"><strong>Neural factor discovery.</strong> Learn a structured latent representation beyond the physics-derived decomposition, using component-specific encoders and decoders. Training will encourage distinct motion factors while preserving reconstruction fidelity.</li></ul></div>
+</div><figure class="factor-space-diagram fragment" data-step="1">
+<svg viewBox="0 0 560 560" role="img" aria-labelledby="structure-title structure-desc">
+<title id="structure-title">One feasible motion encoded into two compact representations</title>
+<desc id="structure-desc">A highlighted point inside the feasible set represents one complete motion history. The same history is encoded into a compact unstructured representation or grouped latent factors, each illustrated with nine coordinates.</desc>
+<defs><marker id="structure-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10" fill="#526e7d"/></marker><linearGradient id="structure-feasible-fill" x1="0" y1="0" x2=".7" y2="1"><stop stop-color="#d6efea"/><stop offset="1" stop-color="#94c8bf"/></linearGradient></defs>
+<text x="32" y="20" class="diagram-heading">Trajectory space T</text>
+<g stroke="#b9cbd4" stroke-width="1.4" stroke-linejoin="round"><path d="M45 75L425 75L510 35L130 35Z" fill="#e9f0f3" fill-opacity=".5" /><path d="M45 75V220L425 220V75" fill="#edf2f4" fill-opacity=".35" /><path d="M425 75L510 35V180L425 220Z" fill="#e0e9ed" fill-opacity=".3" /><path d="M130 35V180L510 180 M130 180L45 220" fill="none" stroke-dasharray="4 5" /></g>
+<g fill="none" stroke="#d2dfe5" stroke-width="1"><path d="M45 123H425L510 83 M45 171H425L510 131 M140 75V220 M235 75V220 M330 75V220 M140 75L225 35 M235 75L320 35 M330 75L415 35" /></g>
+<path d="M82 168C137 112 192 161 250 103C316 69 379 101 444 126L465 173C389 210 334 179 260 201C200 219 117 221 82 168Z" transform="translate(0 10)" fill="#6ba99f" fill-opacity=".38" stroke="#509889"/>
+<path d="M82 168C137 112 192 161 250 103C316 69 379 101 444 126L465 173C389 210 334 179 260 201C200 219 117 221 82 168Z" fill="url(#structure-feasible-fill)" stroke="#3e9588" stroke-width="1.8"/>
+<g fill="none" stroke="#469e90" stroke-opacity=".35"><path d="M91 168C166 180 225 146 285 143C346 140 409 147 456 170 M152 202C188 179 229 143 263 101 M251 203C288 174 327 124 348 99"/></g>
+<text x="111" y="169" class="feasible-set-label">Feasible set F</text>
+<g class="fragment long-tail-points" data-hot="true" data-step="3" data-until="4">
+<circle cx="220" cy="150" r="13" fill="#a56d27" fill-opacity=".16"/><circle cx="220" cy="150" r="5" fill="#a56d27" stroke="#f4f6f8" stroke-width="1.5"/>
+<circle cx="405" cy="155" r="13" fill="#a56d27" fill-opacity=".16"/><circle cx="405" cy="155" r="5" fill="#a56d27" stroke="#f4f6f8" stroke-width="1.5"/>
+<path d="M220 139L194 99 M411 144L437 111" fill="none" stroke="#a56d27" stroke-width="1.3"/>
+<text x="184" y="90" text-anchor="middle" class="tail-point-label">Long-tail manoeuvres</text>
+<text x="441" y="82" text-anchor="middle" class="tail-point-label">Risky</text><text x="441" y="101" text-anchor="middle" class="tail-point-label">manoeuvres</text>
+</g>
+<circle cx="330" cy="151" r="7" fill="#213b50" stroke="#f4f6f8" stroke-width="2"/>
+<circle cx="330" cy="151" r="13" fill="none" stroke="#213b50" stroke-opacity=".35"/>
+<path d="M330 166V225H280V229" fill="none" stroke="#526e7d" stroke-width="1.5"/>
+<text x="280" y="248" text-anchor="middle" class="diagram-heading">One feasible motion history</text>
+<path d="M280 258V264H136V304" fill="none" stroke="#526e7d" stroke-width="1.5" marker-end="url(#structure-arrow)"/>
+<g transform="translate(0 160)">
+<text x="136" y="179" text-anchor="middle" class="diagram-heading">Compact, unstructured</text>
+<rect x="50" y="199" width="172" height="141" rx="7" fill="#e9eef1" stroke="#9aaeb9"/>
+<rect x="89" y="222" width="24" height="24" rx="3" fill="#8398a4" fill-opacity=".55"/><rect x="124" y="222" width="24" height="24" rx="3" fill="#8398a4" fill-opacity=".55"/><rect x="159" y="222" width="24" height="24" rx="3" fill="#8398a4" fill-opacity=".55"/><rect x="89" y="257" width="24" height="24" rx="3" fill="#8398a4" fill-opacity=".55"/><rect x="124" y="257" width="24" height="24" rx="3" fill="#8398a4" fill-opacity=".55"/><rect x="159" y="257" width="24" height="24" rx="3" fill="#8398a4" fill-opacity=".55"/><rect x="89" y="292" width="24" height="24" rx="3" fill="#8398a4" fill-opacity=".55"/><rect x="124" y="292" width="24" height="24" rx="3" fill="#8398a4" fill-opacity=".55"/><rect x="159" y="292" width="24" height="24" rx="3" fill="#8398a4" fill-opacity=".55"/>
+<text x="136" y="372" text-anchor="middle" class="factor-coordinate-label">Latent representation z</text>
+<g class="fragment" data-step="5">
+<path d="M280 104H424V144" fill="none" stroke="#526e7d" stroke-width="1.5" marker-end="url(#structure-arrow)"/>
+<text x="424" y="179" text-anchor="middle" class="diagram-heading">Compact, factorized</text>
+<rect x="338" y="199" width="210" height="141" rx="7" fill="#f4f6f8" stroke="#9aaeb9"/>
+<path d="M348 255H538 M348 290H538" stroke="#bccbd2" stroke-dasharray="3 4"/>
+<rect x="354" y="222" width="18" height="18" rx="3" fill="#428e84" fill-opacity=".55"/><rect x="377" y="222" width="18" height="18" rx="3" fill="#428e84" fill-opacity=".55"/><rect x="400" y="222" width="18" height="18" rx="3" fill="#428e84" fill-opacity=".55"/><rect x="354" y="257" width="18" height="18" rx="3" fill="#728bb2" fill-opacity=".55"/><rect x="377" y="257" width="18" height="18" rx="3" fill="#728bb2" fill-opacity=".55"/><rect x="400" y="257" width="18" height="18" rx="3" fill="#728bb2" fill-opacity=".55"/><rect x="354" y="292" width="18" height="18" rx="3" fill="#ad8249" fill-opacity=".55"/><rect x="377" y="292" width="18" height="18" rx="3" fill="#ad8249" fill-opacity=".55"/><rect x="400" y="292" width="18" height="18" rx="3" fill="#ad8249" fill-opacity=".55"/>
+<text x="429" y="240" class="factor-coordinate-label">z₁</text><text x="429" y="275" class="factor-coordinate-label">z₂</text><text x="429" y="310" class="factor-coordinate-label">z₃</text>
+<g class="fragment factor-meaning-labels" data-step="7">
+<text x="443" y="195" text-anchor="middle" class="factor-example-heading">Example meanings</text>
+<text x="450" y="232" class="factor-example-label">Thrust-axis</text><text x="450" y="248" class="factor-example-label">rotation</text>
+<text x="450" y="275" class="factor-example-label">Path shape</text>
+<text x="450" y="310" class="factor-example-label">Pace</text>
+</g>
+<text x="443" y="372" text-anchor="middle" class="factor-coordinate-label">Grouped latent factors</text>
+</g></g></svg></figure></div>
+</section>
+
+
+<section class="slide light generator-frame hypothesis-generation-frame" data-name="Generalization and focused search" id="frame-6" hidden>
+<p class="eyebrow">Our hypothesis</p><h2>Use learned structure<br><em>to generate new motion</em></h2>
+<div class="factor-generation">
+<div class="factor-explanation hot-fragments">
+<div class="fragment" data-hot="true" data-step="1"><h3>Generate new combinations</h3><p>Shared motion factors could be combined to generate a new manoeuvre without a demonstration of that complete movement.</p></div>
+<div class="fragment" data-hot="true" data-step="2"><h3>Focus the search</h3><p>For a requested variation, we could search over the relevant factors instead of searching the entire motion representation.</p><p class="generation-hypothesis"><strong>Our hypothesis:</strong> this structure improves generalization while preserving physical feasibility, with potential savings in demonstrations and computation.</p></div>
+</div>
+<div class="hypothesis-visuals">
+<figure class="factor-generation-diagram fragment" data-hot="true" data-step="1" data-until="2">
+<svg viewBox="0 0 560 460" role="img" aria-labelledby="combinations-title combinations-desc">
+<title id="combinations-title">Proposed generation from shared motion factors</title>
+<desc id="combinations-desc">Two demonstrated combinations contribute to shared motion factors. Component generators propose a combination absent from the examples, and a coordinated decoder produces a candidate trajectory. A requested variation can focus search on a relevant factor while coordination retains physical coupling. Executability is the goal to test.</desc>
+<defs><marker id="combination-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10" fill="#526e7d"/></marker></defs>
+<text x="280" y="22" text-anchor="middle" class="diagram-heading">Demonstrated combinations</text>
+<rect x="74" y="42" width="47" height="32" rx="4" fill="#428e84" fill-opacity=".16" stroke="#428e84"/><text x="97.5" y="64" text-anchor="middle" class="factor-coordinate-label">a₁</text><rect x="130" y="42" width="47" height="32" rx="4" fill="#728bb2" fill-opacity=".16" stroke="#728bb2"/><text x="153.5" y="64" text-anchor="middle" class="factor-coordinate-label">b₁</text><rect x="186" y="42" width="47" height="32" rx="4" fill="#ad8249" fill-opacity=".16" stroke="#ad8249"/><text x="209.5" y="64" text-anchor="middle" class="factor-coordinate-label">c₁</text><rect x="320" y="42" width="47" height="32" rx="4" fill="#428e84" fill-opacity=".16" stroke="#428e84"/><text x="343.5" y="64" text-anchor="middle" class="factor-coordinate-label">a₂</text><rect x="376" y="42" width="47" height="32" rx="4" fill="#728bb2" fill-opacity=".16" stroke="#728bb2"/><text x="399.5" y="64" text-anchor="middle" class="factor-coordinate-label">b₂</text><rect x="432" y="42" width="47" height="32" rx="4" fill="#ad8249" fill-opacity=".16" stroke="#ad8249"/><text x="455.5" y="64" text-anchor="middle" class="factor-coordinate-label">c₂</text>
+<path d="M153 81V101H280 M400 81V101H280 M280 101V130" fill="none" stroke="#526e7d" stroke-width="1.5" marker-end="url(#combination-arrow)"/>
+<text x="299" y="123" class="coupling-label">Learn shared factors</text>
+<text x="280" y="153" text-anchor="middle" class="diagram-heading">Component generators</text>
+<rect x="60" y="169" width="130" height="61" rx="5" fill="#d9eee9" stroke="#428e84"/><text x="125" y="193" text-anchor="middle" class="factor-coordinate-label">G₁ · factor z₁</text><text x="125" y="217" text-anchor="middle" class="factor-coordinate-label">a₁</text>
+<rect x="215" y="169" width="130" height="61" rx="5" fill="#e4eaf5" stroke="#728bb2"/><text x="280" y="193" text-anchor="middle" class="factor-coordinate-label">G₂ · factor z₂</text><text x="280" y="217" text-anchor="middle" class="factor-coordinate-label">b₂</text>
+<rect x="370" y="169" width="130" height="61" rx="5" fill="#f3e8d5" stroke="#ad8249"/><text x="435" y="193" text-anchor="middle" class="factor-coordinate-label">G₃ · factor z₃</text><text x="435" y="217" text-anchor="middle" class="factor-coordinate-label">c₁</text>
+<g class="fragment" data-hot="true" data-step="1"><text x="280" y="262" text-anchor="middle" class="factor-edit-label">A combination absent from the examples</text></g>
+<g class="fragment" data-hot="true" data-step="2"><rect x="211" y="165" width="138" height="69" rx="7" fill="none" stroke="#157e78" stroke-width="3"/><text x="280" y="262" text-anchor="middle" class="factor-edit-label">Requested variation → focus search on z₂</text></g>
+<path d="M125 234V281H280 M435 234V281H280 M280 268V300" fill="none" stroke="#526e7d" stroke-width="1.5" marker-end="url(#combination-arrow)"/>
+<rect x="131" y="309" width="298" height="42" rx="5" fill="#213b50"/><text x="280" y="336" text-anchor="middle" class="decoder-label">Coordinated decoder</text>
+<text x="280" y="374" text-anchor="middle" class="coupling-label">Preserve physical compatibility</text>
+<path d="M280 383V405" stroke="#526e7d" stroke-width="1.5" marker-end="url(#combination-arrow)"/>
+<text x="280" y="438" text-anchor="middle" class="output-label">New candidate trajectory</text>
+</svg></figure>
+
+</div></div></section>
+
+<section class="slide light" data-name="Two routes to impact" id="frame-7" hidden>
+<p class="eyebrow">Two routes to impact</p><h2>New aerial capabilities.<br><em>A practical first application.</em></h2>
+<div class="impact-cols"><article class="fragment" data-step="1"><span class="number">01</span><h3>Hazardous aerial work in NZ</h3><p>Tasks such as aerial tree pruning need precise control, but collecting flight examples can be costly and risky.</p><p>Generating movements for new task conditions from limited demonstrations could make these capabilities easier to develop. Lower total inference cost would support edge deployment on compact onboard computers.</p><p class="caption">Our helicopter testbed will establish a foundation for assessing transfer to these tasks.</p></article><article class="fragment" data-step="2"><span class="number">02</span><h3>The global RC hobby market</h3><p>Difficult manoeuvres take practice. Crashes interrupt learning through repair costs and lost flying time.</p><p>Generating feasible variations of a requested manoeuvre could supply movement references for a shared-autonomy assistant, helping pilots practise with controller support.</p><p class="caption">Possible routes include controller licensing and simulator integration. Predictive recovery is a later extension.</p></article></div>
+</section>
+</main><footer><span id="counter">01 / 07</span><span id="frame-name">The aerial motion problem</span><nav aria-label="Choose frame"></nav><div><span class="hint">Space / → next point</span><button id="previous" aria-label="Previous point">‹</button><button id="next" aria-label="Next point">›</button></div><div class="progress"></div></footer><span id="announcement" class="sr-only" aria-live="polite"></span>
+
+<dialog id="symmetry-dialog" aria-labelledby="symmetry-title">
+<div class="dialog-head"><h2 id="symmetry-title">Physics-guided factorization</h2><button data-close aria-label="Close physical example">✕</button></div>
+<div class="symmetry-content">
+<div class="symmetry-model-shell"><canvas id="symmetry-model" role="img" aria-label="Helicopter body rotating about a tilted rotor axis while the main-rotor thrust arrow stays fixed"></canvas><span class="symmetry-badge">Main-rotor thrust held fixed</span></div>
+<div class="symmetry-captions" aria-live="polite">
+<div id="symmetry-caption-one"><p>Rotate the body about the thrust axis.<br><strong>The thrust direction stays unchanged.</strong></p><div class="symmetry-math" role="math" aria-label="Thrust direction n at rotation angle psi equals thrust direction n at zero rotation"><i>n</i>(ψ) = <i>n</i>(0)</div><div class="symmetry-symbol-key"><i>n</i>: thrust direction<br>ψ: rotation angle about the thrust axis</div></div>
+<div id="symmetry-caption-two" hidden><p>This symmetry identifies<br><strong>a natural angular component for motion factorization.</strong></p></div>
+</div>
+<div class="symmetry-controls"><button id="symmetry-replay">↻ Replay</button><button id="symmetry-pause">Pause animation</button><span>Physics-informed inductive bias</span></div>
+<p class="symmetry-note">This symmetry concerns the thrust mapping; rotational dynamics still constrain how the angle evolves.</p>
+</div>
+</dialog>
+
+
+</body></html>
